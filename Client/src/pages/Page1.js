@@ -25,6 +25,7 @@ function Page1() {
         <Box>
           <PaperContainer>
             <PaperBox>
+              <div></div>
               <h3>1. 총 보유자산 = 현금 + 주식, 수익률</h3>
 
             </PaperBox>
@@ -44,7 +45,7 @@ function Page1() {
       </Container>
 
       <TradeContainer>
-        <div>
+        <div style={{overflow:'hidden'}} >
           <Stack direction="row" spacing={2}>
             <Button variant="contained" color="info" onClick={() => { alert('자동매매 전략을 변경했습니다.'); }}> 변동성 돌파매매 </Button>
             <Button variant="contained" color="success" onClick={() => { alert('자동매매 전략을 변경했습니다.'); }}> 이평선 괴리율 스윙 </Button>
@@ -52,8 +53,8 @@ function Page1() {
           </Stack>
         </div>
 
-        <div style={{"height" : "80%", marginTop:"1.5%"}}>
-          <DataTable style={{ height: '100%', width: '100%' }}/>
+        <div style={{height:"80%", width:"100%",marginTop:"1.5%"}}>
+          <DataTable/>
         </div>
       </TradeContainer>
     </div>
