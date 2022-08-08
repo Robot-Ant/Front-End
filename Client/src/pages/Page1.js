@@ -24,15 +24,16 @@ function Page1() {
       <Container>
         <Box>
           <PaperContainer>
-            <PaperBox>
-              <div></div>
-              <h3>1. 총 보유자산 = 현금 + 주식, 수익률</h3>
-
+            <PaperBox style={{overflow:'hidden'}}>
+              <FontBox style={{fontSize:'1.2vw', color:'gray', marginBottom:'3%'}}>총 보유 자산</FontBox>
+              <FontBox>4878524 원</FontBox>
+              <FontBox>+5%</FontBox>
             </PaperBox>
 
             <PaperBox>
-              2. 주식 평가 금액
-              종목명, 주식수, 수익률
+              <FontBox style={{fontSize:'1.2vw', color:'gray', marginBottom:'3%'}}>주식 평가 금액</FontBox>
+              <FontBox>123123 원</FontBox>
+              <FontBox>+5%</FontBox>
             </PaperBox>
           </PaperContainer>
         </Box>
@@ -45,7 +46,7 @@ function Page1() {
       </Container>
 
       <TradeContainer>
-        <div style={{overflow:'hidden'}} >
+        <div style={{ overflow: 'hidden' }} >
           <Stack direction="row" spacing={2}>
             <Button variant="contained" color="info" onClick={() => { alert('자동매매 전략을 변경했습니다.'); }}> 변동성 돌파매매 </Button>
             <Button variant="contained" color="success" onClick={() => { alert('자동매매 전략을 변경했습니다.'); }}> 이평선 괴리율 스윙 </Button>
@@ -53,8 +54,8 @@ function Page1() {
           </Stack>
         </div>
 
-        <div style={{height:"80%", width:"100%",marginTop:"1.5%"}}>
-          <DataTable/>
+        <div style={{ height: "80%", width: "100%", marginTop: "1.5%" }}>
+          <DataTable />
         </div>
       </TradeContainer>
     </div>
@@ -84,8 +85,10 @@ const Box = styled.div`
   border: 2px solid;
   border-color: rgba(95, 93, 93, 0.438);
   border-radius: 8px;
+
   @media only screen and (max-width: 720px) {
     width: 100%;
+    height: 50%;
   }
 `
 
@@ -96,6 +99,9 @@ const ChartBox = styled.div`
   align-items: center;
   justify-content: center;
 
+  @media only screen and (max-width: 720px) {
+    overflow: scroll;
+  }
 `
 
 const TradeContainer = styled.div`
@@ -110,6 +116,7 @@ const TradeContainer = styled.div`
   border-color: rgba(95, 93, 93, 0.438);
   border-radius: 8px;
 `
+
 const PaperContainer = styled.div`
   display: flex;
   width: 100%;
@@ -122,6 +129,10 @@ const PaperContainer = styled.div`
 `
 
 const PaperBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   width: 90%;
   height: 45%;
   background-color: white;
@@ -131,16 +142,14 @@ const PaperBox = styled.div`
   box-shadow: rgba(0, 0, 0, 0.35) 0px 4px 6px;
 `
 
-//자산카드
-const StatHeader = styled.div`
- height: 30%;
- color: gray;
-`
-const StatValue = styled.div`
- height: 30%;
- color: gray;
-`
-const StatFooter = styled.div`
- height: 30%;
- color: gray;
+const FontBox = styled.div`
+  font-size: 1.3vw;
+
+  @media only screen and (max-width: 720px) {
+    font-size: 1em;
+  }
+
+  @media only screen and (min-width: 721px) {
+    font-size: 1.5em;
+  }
 `

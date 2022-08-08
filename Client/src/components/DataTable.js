@@ -39,6 +39,7 @@ export default function DenseTable() {
             <TableCell align="center" style={{width:'10%', fontWeight: 'bolder', whiteSpace:'nowrap'}}> 주식 수</TableCell>
           </TableRow>
         </TableHead>
+        
         <TableBody>
           {rows.map((row) => (
             <TableRow
