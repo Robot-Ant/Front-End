@@ -25,13 +25,13 @@ function Page1() {
         <Box>
           <PaperContainer>
             <PaperBox style={{overflow:'hidden'}}>
-              <FontBox style={{fontSize:'1.2vw', color:'gray', marginBottom:'3%'}}>총 보유 자산</FontBox>
+              <FontBox style={{fontSize:'1.2vw', color:'gray', marginBottom:'2.0%'}}>총 보유 자산</FontBox>
               <FontBox>4878524 원</FontBox>
               <FontBox>+5%</FontBox>
             </PaperBox>
 
             <PaperBox>
-              <FontBox style={{fontSize:'1.2vw', color:'gray', marginBottom:'3%'}}>주식 평가 금액</FontBox>
+              <FontBox style={{fontSize:'1.2vw', color:'gray', marginBottom:'2.0%'}}>주식 평가 금액</FontBox>
               <FontBox>123123 원</FontBox>
               <FontBox>+5%</FontBox>
             </PaperBox>
