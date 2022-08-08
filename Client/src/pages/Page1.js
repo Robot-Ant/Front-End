@@ -9,7 +9,10 @@ import DataTable from '../components/DataTable';
 //import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 
 function Page1() {
-  const [running, setRunning] = useState(false);
+  const [running, setRunning] = useState(false); // 실행 중
+  const [total, setTotal] = useState(49999999); //총 보유 자산
+  const [rate, setRate] = useState(5.5); // 수익률
+  // (단위변환).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
   return (
     <div>
@@ -26,14 +29,14 @@ function Page1() {
           <PaperContainer>
             <PaperBox style={{overflow:'hidden'}}>
               <FontBox style={{fontSize:'1.2vw', color:'gray', marginBottom:'2.0%'}}>총 보유 자산</FontBox>
-              <FontBox>4878524 원</FontBox>
-              <FontBox>+5%</FontBox>
+              <FontBox> {total} 원</FontBox>
+              {rate>=0 ? <FontBox style={{color:'blue'}}>+{rate}%</FontBox> : <FontBox style={{color:'red'}}>{rate}%</FontBox>}
             </PaperBox>
 
             <PaperBox>
               <FontBox style={{fontSize:'1.2vw', color:'gray', marginBottom:'2.0%'}}>주식 평가 금액</FontBox>
-              <FontBox>123123 원</FontBox>
-              <FontBox>+5%</FontBox>
+              <FontBox> {total} 원</FontBox>
+              {rate>=0 ? <FontBox style={{color:'blue'}}>+{rate}%</FontBox> : <FontBox style={{color:'red'}}>{rate}%</FontBox>}
             </PaperBox>
           </PaperContainer>
         </Box>
