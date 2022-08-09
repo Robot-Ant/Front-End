@@ -11,8 +11,6 @@ import axios from 'axios';
 
 function Page1() {
   const [running, setRunning] = useState(false); // 실행 중
-  const [total, setTotal] = useState(0); //총 보유 자산
-  const [rate, setRate] = useState(+5.5); // 수익률
   const [asset, setAsset] = useState();
  
   useEffect(() => {
