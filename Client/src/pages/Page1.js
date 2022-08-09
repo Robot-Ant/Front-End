@@ -6,13 +6,22 @@ import LineChart2 from '../components/LineChart2';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import DataTable from '../components/DataTable';
+import axios from 'axios';
 //import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 
 function Page1() {
   const [running, setRunning] = useState(false); // 실행 중
-  const [total, setTotal] = useState(49999999); //총 보유 자산
-  const [rate, setRate] = useState(5.5); // 수익률
-  // (단위변환).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  const [total, setTotal] = useState(0); //총 보유 자산
+  const [rate, setRate] = useState(+5.5); // 수익률
+  const [asset, setAsset] = useState();
+ 
+  useEffect(() => {
+    axios.get('http://127.0.0.1:5000/info/stock')
+      .then(res => setAsset(res.data))
+      .catch(function (error) {
+        console.log(error);
+      })
+  }, [])
 
   return (
     <div>
@@ -27,16 +36,32 @@ function Page1() {
       <Container>
         <Box>
           <PaperContainer>
-            <PaperBox style={{overflow:'hidden'}}>
-              <FontBox style={{fontSize:'1.2vw', color:'gray', marginBottom:'2.0%'}}>총 보유 자산</FontBox>
-              <FontBox> {total} 원</FontBox>
-              {rate>=0 ? <FontBox style={{color:'blue'}}>+{rate}%</FontBox> : <FontBox style={{color:'red'}}>{rate}%</FontBox>}
+            <PaperBox style={{ overflow: 'hidden' }}>
+              <FontBox style={{ fontSize: '1.2vw', color: 'gray', marginBottom: '2.0%' }}>총 보유 자산</FontBox>
+              {asset ? <FontBox> {asset['total_asset']} 원</FontBox> : <FontBox> { } 원</FontBox>}
+
+              {asset ?
+                (
+                  asset['asst_icdc'] >=0 ?
+                    <FontBox style={{ color: 'blue'}}>+{asset['asst_icdc']}%</FontBox>
+                    :
+                    <FontBox style={{ color: 'red' }}> {asset['asst_icdc']}%</FontBox>
+                )
+                : <FontBox> 0.0% </FontBox>}
             </PaperBox>
 
             <PaperBox>
-              <FontBox style={{fontSize:'1.2vw', color:'gray', marginBottom:'2.0%'}}>주식 평가 금액</FontBox>
-              <FontBox> {total} 원</FontBox>
-              {rate>=0 ? <FontBox style={{color:'blue'}}>+{rate}%</FontBox> : <FontBox style={{color:'red'}}>{rate}%</FontBox>}
+              <FontBox style={{ fontSize: '1.2vw', color: 'gray', marginBottom: '2.0%' }}>주식 평가 금액</FontBox>
+              {asset ? <FontBox> {asset['evlu_amt']} 원</FontBox> : <FontBox> { } 원</FontBox>}
+              {asset ?
+                (
+                  asset['asst_icdc'] >= 0 ?
+                    <FontBox style={{ color: 'blue' }}>+{asset['asst_icdc']}%</FontBox>
+                    :
+                    <FontBox style={{ color: 'red' }}> {asset['asst_icdc']}%</FontBox>
+                )
+                : <FontBox> 0.0% </FontBox>}
+
             </PaperBox>
           </PaperContainer>
         </Box>
@@ -50,10 +75,11 @@ function Page1() {
 
       <TradeContainer>
         <div style={{ overflow: 'hidden' }} >
-          <Stack direction="row" spacing={2}>
-            <Button variant="contained" color="info" onClick={() => { alert('자동매매 전략을 변경했습니다.'); }}> 변동성 돌파매매 </Button>
+          <Stack direction="row" spacing={2} >
+            <Button variant="contained" color="info" onClick={() => { alert('자동매매 전략을 변경했습니다.'); }}> 변동성 돌파 </Button>
             <Button variant="contained" color="success" onClick={() => { alert('자동매매 전략을 변경했습니다.'); }}> 이평선 괴리율 스윙 </Button>
-            <Button variant="contained" color="warning" onClick={() => { alert('자동매매 전략을 변경했습니다.'); }}> 체결강도 매매 </Button>
+            <Button variant="contained" color="warning" onClick={() => { alert('자동매매 전략을 변경했습니다.'); }}> 체결강도 </Button>
+            <Button variant="contained" color="secondary" onClick={() => { alert('자동매매 전략을 변경했습니다.'); }}> 평균 복원 </Button>
           </Stack>
         </div>
 
