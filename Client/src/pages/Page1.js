@@ -37,7 +37,6 @@ function Page1() {
             <PaperBox style={{ overflow: 'hidden' }}>
               <FontBox style={{ fontSize: '1.2vw', color: 'gray', marginBottom: '2.0%' }}>총 보유 자산</FontBox>
               {asset ? <FontBox> {asset['total_asset']} 원</FontBox> : <FontBox> { } 원</FontBox>}
-
               {asset ?
                 (
                   asset['asst_icdc'] >=0 ?
@@ -53,10 +52,10 @@ function Page1() {
               {asset ? <FontBox> {asset['evlu_amt']} 원</FontBox> : <FontBox> { } 원</FontBox>}
               {asset ?
                 (
-                  asset['asst_icdc'] >= 0 ?
-                    <FontBox style={{ color: 'blue' }}>+{asset['asst_icdc']}%</FontBox>
+                  asset['evlu_ratio'] >= 0 ?
+                    <FontBox style={{ color: 'blue' }}>+{asset['evlu_ratio']}%</FontBox>
                     :
-                    <FontBox style={{ color: 'red' }}> {asset['asst_icdc']}%</FontBox>
+                    <FontBox style={{ color: 'red' }}> {asset['evlu_ratio']}%</FontBox>
                 )
                 : <FontBox> 0.0% </FontBox>}
 
