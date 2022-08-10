@@ -7,25 +7,25 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-function createData(date, time, mesu, code, price, count) {
-  return {date, time, mesu, code, price, count};
-}
+export default function DataTable(props) {
+  function createData(date, time, mesu, code, price, count) {
+    return {date, time, mesu, code, price, count};
+  }
+  
+  const rows = [
+    createData('2022-08-06', 159, 6.0, 24, 4.0, 5),
+    createData('2022-08-06', 237, 9.0, 37, 4.3, 5),
+    createData('2022-08-06', 262, 16.0, 24, 6.0, 5),
+    createData('Cupcake', 305, 3.7, 67, 4.3, 5),
+    createData('Gingerbread', 356, 16.0, 49, 3.9, 5),
+    createData('Gingerbread', 356, 16.0, 49, 3.9, 5),
+    createData('Gingerbread', 356, 16.0, 49, 3.9, 5),
+    createData('Gingerbread', 356, 16.0, 49, 3.9, 5),
+    createData('Gingerbread', 356, 16.0, 49, 3.9, 5),
+    createData('Gingerbread', 356, 16.0, 49, 3.9, 5),
+    createData('Gingerbread', 356, 16.0, 49, 3.9, 5),
+  ];
 
-const rows = [
-  createData('2022-08-06', 159, 6.0, 24, 4.0, 5),
-  createData('2022-08-06', 237, 9.0, 37, 4.3, 5),
-  createData('2022-08-06', 262, 16.0, 24, 6.0, 5),
-  createData('Cupcake', 305, 3.7, 67, 4.3, 5),
-  createData('Gingerbread', 356, 16.0, 49, 3.9, 5),
-  createData('Gingerbread', 356, 16.0, 49, 3.9, 5),
-  createData('Gingerbread', 356, 16.0, 49, 3.9, 5),
-  createData('Gingerbread', 356, 16.0, 49, 3.9, 5),
-  createData('Gingerbread', 356, 16.0, 49, 3.9, 5),
-  createData('Gingerbread', 356, 16.0, 49, 3.9, 5),
-  createData('Gingerbread', 356, 16.0, 49, 3.9, 5),
-];
-
-export default function DenseTable() {
   return (
     <TableContainer component={Paper} style={{height:'100%',width:'100%', overflow: 'scroll'}} >
       <Table stickyHeader size="small" aria-label="a dense table" >

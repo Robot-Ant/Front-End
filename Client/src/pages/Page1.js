@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useEffect, useState } from "react";
 import Alert from '@mui/material/Alert';
-import LineChart2 from '../components/LineChart2';
+import LineChart from '../components/LineChart';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import DataTable from '../components/DataTable';
@@ -11,8 +11,11 @@ import axios from 'axios';
 
 function Page1() {
   const [running, setRunning] = useState(false); // 실행 중
-  const [asset, setAsset] = useState();
- 
+  const [asset, setAsset] = useState({});
+  const [strategy, setStrategy] = useState("변동성 돌파");
+  const [dtable, setDtable] = useState();
+  const [assetvolatility, setAssetvolatility] = useState({});
+
   useEffect(() => {
     axios.get('http://127.0.0.1:5000/info/stock')
       .then(res => setAsset(res.data))
@@ -20,12 +23,21 @@ function Page1() {
         console.log(error);
       })
   }, [])
+  
+  useEffect(() => {
+    axios.get('http://127.0.0.1:5000/chart/assetvolatility')
+      .then(res => setAssetvolatility(res.data))
+      .catch(function (error) {
+        console.log(error);
+      })
+  }, [])
+  
 
   return (
     <div>
       <div style={{ marginBottom: 10 }}>
         {running === true ?
-          <Alert severity="success">자동매매가 실행 중입니다.</Alert>
+          <Alert severity="success"> <span style={{color:"blue"}}>{strategy}</span> 자동매매가 실행 중입니다. </Alert>
           :
           <Alert severity="warning">자동매매가 꺼져 있습니다.</Alert>
         }
@@ -65,7 +77,7 @@ function Page1() {
 
         <Box>
           <ChartBox>
-            <LineChart2></LineChart2>
+            <LineChart items = {assetvolatility}></LineChart>
           </ChartBox>
         </Box>
       </Container>
@@ -73,10 +85,10 @@ function Page1() {
       <TradeContainer>
         <div style={{ overflow: 'hidden' }} >
           <Stack direction="row" spacing={2} >
-            <Button variant="contained" color="info" onClick={() => { alert('자동매매 전략을 변경했습니다.'); }}> 변동성 돌파 </Button>
-            <Button variant="contained" color="success" onClick={() => { alert('자동매매 전략을 변경했습니다.'); }}> 이평선 괴리율 스윙 </Button>
-            <Button variant="contained" color="warning" onClick={() => { alert('자동매매 전략을 변경했습니다.'); }}> 체결강도 </Button>
-            <Button variant="contained" color="secondary" onClick={() => { alert('자동매매 전략을 변경했습니다.'); }}> 평균 복원 </Button>
+            <Button variant="contained" color="info" onClick={() => {alert('자동매매 전략을 변경했습니다.'); setStrategy("변동성 돌파")}}> 변동성 돌파 </Button>
+            <Button variant="contained" color="success" onClick={() => { alert('자동매매 전략을 변경했습니다.'); setStrategy("이평선 괴리율 스윙")}}> 이평선 괴리율 스윙 </Button>
+            <Button variant="contained" color="warning" onClick={() => { alert('자동매매 전략을 변경했습니다.'); setStrategy("체결강도")}}> 체결강도 </Button>
+            <Button variant="contained" color="secondary" onClick={() => { alert('자동매매 전략을 변경했습니다.'); setStrategy("평균 복원")}}> 평균 복원 </Button>
           </Stack>
         </div>
 
