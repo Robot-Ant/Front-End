@@ -23,7 +23,7 @@ function Page1() {
         console.log(error);
       })
   }, [])
-  
+
   useEffect(() => {
     axios.get('http://127.0.0.1:5000/chart/assetvolatility')
       .then(res => setAssetvolatility(res.data))
@@ -32,7 +32,6 @@ function Page1() {
       })
   }, [])
   
-
   return (
     <div>
       <div style={{ marginBottom: 10 }}>

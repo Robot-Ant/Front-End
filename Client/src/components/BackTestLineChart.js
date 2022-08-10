@@ -27,7 +27,7 @@ export const options = {
   plugins: {
     title: {
       display: true,
-      text: 'Chart.js Line Chart',
+      text: '자동매매 전략 백테스팅 차트',
     },
   },
 };
@@ -38,14 +38,20 @@ export const data = {
   labels,
   datasets: [
     {
-      label: 'Dataset 1',
+      label: '변동성 돌파매매',
       data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
       borderColor: 'rgb(255, 99, 132)',
       backgroundColor: 'rgba(255, 99, 132, 0.5)',
     },
     {
-      label: 'Dataset 2',
+      label: '무슨무슨 매매',
       data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
+      borderColor: 'rgb(53, 162, 235)',
+      backgroundColor: 'rgba(53, 162, 235, 0.5)',
+    },
+    {
+      label: '적은 매매',
+      data: [123, 123, 151],
       borderColor: 'rgb(53, 162, 235)',
       backgroundColor: 'rgba(53, 162, 235, 0.5)',
     },
@@ -53,5 +59,5 @@ export const data = {
 };
 
 export default function BackTestLineChart(props) {
-    return <Line options={options} data={data} />;
+  return <Line options={options} data={data} />;
 }

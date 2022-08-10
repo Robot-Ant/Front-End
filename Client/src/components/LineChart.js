@@ -10,7 +10,6 @@ import {
   Legend,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
-import faker from 'faker';
 
 ChartJS.register(
   CategoryScale,
@@ -33,8 +32,8 @@ export default function LineChart(props) {
     },
   };
 
-  const labels = props.items.date;
-  const ydata = props.items.asset;
+  let labels = props.items.date;
+  let ydata = props.items.asset;
 
   const data = {
     labels,
