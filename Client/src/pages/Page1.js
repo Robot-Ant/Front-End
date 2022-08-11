@@ -7,7 +7,11 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import DataTable from '../components/DataTable';
 import axios from 'axios';
-//import TrendingUpIcon from '@mui/icons-material/TrendingUp';
+import { Modal } from 'antd';
+import 'antd/dist/antd.css';
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+import { Input } from 'antd';
+
 
 function Page1() {
   const [running, setRunning] = useState(false); // 실행 중
@@ -16,6 +20,22 @@ function Page1() {
   const [dtable, setDtable] = useState();
   const [assetvolatility, setAssetvolatility] = useState({});
 
+  //Modal
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [inputValue, setInputValue] = useState();
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+  const handleInputValue = (e) => {
+    setInputValue(e.target.value)
+  }
+  
   useEffect(() => {
     axios.get('http://127.0.0.1:5000/info/stock')
       .then(res => setAsset(res.data))
@@ -40,13 +60,28 @@ function Page1() {
           :
           <Alert severity="warning">자동매매가 꺼져 있습니다.</Alert>
         }
+        <Button type="primary" onClick={showModal}> <HelpOutlineIcon/>나의 수익이 궁금하다면?</Button>
       </div>
-
       <Container>
         <Box>
           <PaperContainer>
             <PaperBox style={{ overflow: 'hidden' }}>
               <FontBox style={{ fontSize: '1.2vw', color: 'gray', marginBottom: '2.0%' }}>총 보유 자산</FontBox>
+              
+              <Modal title="자동매매 수익 시뮬레이터" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+                <Input placeholder="자산을 입력하세요" onChange={handleInputValue}/>
+                
+                <p style={{marginTop:'5%'}}>변동성 돌파 : {inputValue&& inputValue *1.5}</p>
+                <p>이평선 괴리율 스윙 : {inputValue&& inputValue *0.9}</p>
+                <p>체결강도 : {inputValue&& inputValue *1.3}</p>
+                <p>평균 복원 : {inputValue&& inputValue *1.2}</p>
+                
+                <p style={{color:'gray', fontSize:'5%'}}>
+                  투자의 책임은 투자자 본인에게 있습니다. 백테스트에 기반한 예측일 뿐이며, <br/> 원금이나 수익이 보장되지 않습니다.
+                </p>
+                
+              </Modal>
+            
               {asset ? <FontBox> {asset['total_asset']} 원</FontBox> : <FontBox> { } 원</FontBox>}
               {asset ?
                 (

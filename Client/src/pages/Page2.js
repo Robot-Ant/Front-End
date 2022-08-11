@@ -15,7 +15,6 @@ function Page2() {
   const [financeData, setFinanceData] = useState({});
   const [loading, setLoading] = useState(false);
 
-
   useEffect(() => {
     axios.get('http://127.0.0.1:5000/info/namelist')
       .then(res => setFinanceList(res.data))
