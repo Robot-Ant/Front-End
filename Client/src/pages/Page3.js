@@ -20,11 +20,13 @@ function Page3(props) {
       <ChartContainer style={{ marginTop: '15px' }}>
         <Box>
           <ChartBox>
+            이평선 괴리율 스윙
 
           </ChartBox>
         </Box>
         <Box>
           <ChartBox>
+            체결강도
 
           </ChartBox>
         </Box>
