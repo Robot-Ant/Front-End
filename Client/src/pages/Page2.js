@@ -24,18 +24,24 @@ function Page2() {
       })
   }, [])
 
-  function getFinanceData() {
-    if (value) {
-      axios.get('http://localhost:5000/info/financedata', {
-        params: {
-          id: value
-        }
-      })
-        .then(res => setFinanceData(res.data))
-        .catch(function (error) {
-          console.log(error);
+  const getFinanceData = async() => {
+    setLoading(true)
+    try{
+      if (value) {
+        await axios.get('http://localhost:5000/info/financedata', {
+          params: {
+            id: value
+          }
         })
+          .then(res => setFinanceData(res.data))
+          .catch(function (error) {
+            console.log(error);
+          })
+      }
+    } catch(error){
+      console.log(error);
     }
+    setLoading(false)
   }
 
   console.log(financeData)
