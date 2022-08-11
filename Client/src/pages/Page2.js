@@ -6,56 +6,67 @@ import Autocomplete from '@mui/material/Autocomplete';
 import axios from 'axios';
 import Button from '@mui/material/Button';
 import FinanceLineChart from '../components/FinanceLineChart';
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
 
 function Page2() {
   const [value, setValue] = useState('');
   const [financeList, setFinanceList] = useState([]);
   const [financeData, setFinanceData] = useState({});
+  const [loading, setLoading] = useState(false);
+
 
   useEffect(() => {
-    axios.get('http://localhost:5000/finance/list')
+    axios.get('http://127.0.0.1:5000/info/namelist')
       .then(res => setFinanceList(res.data))
       .catch(function (error) {
         console.log(error);
       })
   }, [])
 
-  function getFinanceData(){
-    console.log(value)
-    if(value){
-      axios.get('http://localhost:5000/finance/data', {
-      params: {
-        id: value
-      }
+  function getFinanceData() {
+    if (value) {
+      axios.get('http://localhost:5000/info/financedata', {
+        params: {
+          id: value
+        }
       })
-      .then(res => setFinanceData(res.data))
-      .catch(function (error) {
-        console.log(error);
-      })
+        .then(res => setFinanceData(res.data))
+        .catch(function (error) {
+          console.log(error);
+        })
     }
   }
 
+  console.log(financeData)
   return (
     <Container>
       <AutocompleteBox>
         <br />
-        <Autocomplete style={{backgroundColor:'white', borderRadius:3}}
+        <Autocomplete style={{ backgroundColor: 'white', borderRadius: 3 }}
           value={value}
           onChange={(event, newValue) => {
             setValue(newValue);
           }}
           id="controllable-states-demo"
-          options= {['카카오']}
+          options={financeList}
           sx={{ width: 300 }}
           renderInput={(params) => <TextField {...params} label="주식 검색" />}
         />
-        <Button style={{marginLeft:'1.5%'}}variant="contained" onClick={getFinanceData}>검색</Button>
+        <Button style={{ marginLeft: '1.5%' }} variant="contained" onClick={getFinanceData}>검색</Button>
       </AutocompleteBox>
 
       <TradeContainer>
         <ChartBox>
-          <FinanceLineChart items = {financeData}></FinanceLineChart>
+          <FinanceLineChart items={financeData}></FinanceLineChart>
         </ChartBox>
+
+        <Backdrop
+          sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          open={loading}
+        >
+          <CircularProgress color="inherit" />
+        </Backdrop>
       </TradeContainer>
     </Container>
   );

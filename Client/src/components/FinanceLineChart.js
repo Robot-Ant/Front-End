@@ -1,79 +1,84 @@
 import React from 'react';
 import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend,
+    Chart as ChartJS,
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
-import faker from 'faker';
 
 ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend
 );
+export default function FinanceLineChart(props) {
+    let title
+    if (props.items.title){
+        title = props.items.title
+    } else {
+        title = ''
+    }
 
-export const options = {
-  responsive: true,
-  interaction: {
-    mode: 'index',
-    intersect: false,
-  },
-  stacked: false,
-  plugins: {
-    title: {
-      display: true,
-      text: 'Chart.js Line Chart - Multi Axis',
-    },
-  },
-  scales: {
-    y: {
-      type: 'linear',
-      display: true,
-      position: 'left'
-    },
-    y1: {
-      type: 'linear',
-      position: 'right',
-      display: true,
-      grid: {
-        drawOnChartArea: false,
-      },
-    },
-  },
-};
+    const options = {
+        responsive: true,
+        interaction: {
+            mode: 'index',
+            intersect: false,
+        },
+        stacked: false,
+        plugins: {
+            title: {
+                display: true,
+                text: title + ' 다트 API 이익 주가 차트',
+            },
+        },
+        scales: {
+            y: {
+                type: 'linear',
+                display: true,
+                position: 'left'
+            },
+            y1: {
+                type: 'linear',
+                position: 'right',
+                display: true,
+                grid: {
+                    drawOnChartArea: false,
+                },
+            },
+        },
+    };
 
-const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+    const labels = props.items.year;
 
-export const data = {
-  labels,
-  datasets: [
-    {
-      label: 'Dataset 1',
-      data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
-      borderColor: 'rgb(255, 99, 132)',
-      backgroundColor: 'rgba(255, 99, 132, 0.5)',
-      yAxisID: 'y',
-    },
-    {
-      label: 'Dataset 2',
-      data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
-      borderColor: 'rgb(53, 162, 235)',
-      backgroundColor: 'rgba(53, 162, 235, 0.5)',
-      yAxisID: 'y1',
-    },
-  ],
-};
+    const data = {
+        labels,
+        datasets: [
+            {
+                label: '이익(eps)',
+                data: props.items.earning,
+                borderColor: 'rgb(255, 99, 132)',
+                backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                yAxisID: 'y',
+            },
+            {
+                label: '주가',
+                data: props.items.price,
+                borderColor: 'rgb(53, 162, 235)',
+                backgroundColor: 'rgba(53, 162, 235, 0.5)',
+                yAxisID: 'y1',
+            },
+        ],
+    };
 
-export default function FinanceLineChart() {
-  return <Line options={options} data={data} />;
+    return <Line options={options} data={data} />;
 }
