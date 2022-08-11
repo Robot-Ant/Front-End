@@ -44,17 +44,11 @@ export const data = {
       backgroundColor: 'rgba(255, 99, 132, 0.5)',
     },
     {
-      label: '무슨무슨 매매',
+      label: '평균 복원',
       data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
       borderColor: 'rgb(53, 162, 235)',
       backgroundColor: 'rgba(53, 162, 235, 0.5)',
-    },
-    {
-      label: '적은 매매',
-      data: [123, 123, 151],
-      borderColor: 'rgb(53, 162, 235)',
-      backgroundColor: 'rgba(53, 162, 235, 0.5)',
-    },
+    }
   ],
 };
 
