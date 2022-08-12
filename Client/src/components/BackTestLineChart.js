@@ -10,7 +10,6 @@ import {
   Legend,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
-import faker from 'faker';
 
 ChartJS.register(
   CategoryScale,
@@ -33,25 +32,25 @@ export default function BackTestLineChart(props) {
     },
   };
 
-  const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+  const labels = props.items.date;
 
   const data = {
     labels,
     datasets: [
       {
         label: '변동성 돌파매매',
-        data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
+        data: props.items.asset_vb,
         borderColor: 'rgb(255, 99, 132)',
         backgroundColor: 'rgba(255, 99, 132, 0.5)',
       },
       {
         label: '평균 복원',
-        data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
+        data: props.items.asset_rbp,
         borderColor: 'rgb(53, 162, 235)',
         backgroundColor: 'rgba(53, 162, 235, 0.5)',
       }
     ],
   };
-
+  
   return <Line options={options} data={data} />;
 }

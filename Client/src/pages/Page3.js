@@ -5,14 +5,22 @@ import BackTestLineChart from '../components/BackTestLineChart';
 import axios from 'axios';
 
 function Page3(props) {
-  const [assetvolatility, setAssetvolatility] = useState({});
+  const [backData, setBackData] = useState({});
+
+  useEffect(() => {
+    axios.get('http://127.0.0.1:5000/info/backdata')
+      .then(res => setBackData(res.data))
+      .catch(function (error) {
+        console.log(error);
+      })
+  }, [])
 
   return (
     <Container>
       <ChartContainer>
         <MainBox>
           <ChartBox2>
-            <BackTestLineChart items={assetvolatility}></BackTestLineChart>
+            <BackTestLineChart items={backData}></BackTestLineChart>
           </ChartBox2>
         </MainBox>
       </ChartContainer>
