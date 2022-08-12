@@ -17,7 +17,7 @@ export default function DataTable(props) {
           <TableRow>
             <TableCell align="center" style={{width:'3%', fontWeight: 'bolder', whiteSpace:'nowrap'}}> 날짜 </TableCell>
             <TableCell align="center" style={{width:'10%', fontWeight: 'bolder', whiteSpace:'nowrap' }}> 시간 </TableCell>
-            <TableCell align="center" style={{width:'10%', fontWeight: 'bolder', whiteSpace:'nowrap'}}> 0매수 1매도 </TableCell>
+            <TableCell align="center" style={{width:'10%', fontWeight: 'bolder', whiteSpace:'nowrap'}}> 매수/매도 </TableCell>
             <TableCell align="center" style={{width:'10%', fontWeight: 'bolder', whiteSpace:'nowrap'}}> 종목코드 </TableCell>
             <TableCell align="center" style={{width:'10%', fontWeight: 'bolder', whiteSpace:'nowrap'}}> 단가 </TableCell>
             <TableCell align="center" style={{width:'10%', fontWeight: 'bolder', whiteSpace:'nowrap'}}> 주식 수</TableCell>
@@ -34,7 +34,7 @@ export default function DataTable(props) {
                 {row.date}
               </TableCell>
               <TableCell align="center">{row.time}</TableCell>
-              <TableCell align="center">{row.매수}</TableCell>
+              <TableCell align="center">{row.order_type}</TableCell>
               <TableCell align="center">{row.code}</TableCell>
               <TableCell align="center">{row.price}</TableCell>
               <TableCell align="center">{row.count}</TableCell>
