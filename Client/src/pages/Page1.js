@@ -11,20 +11,67 @@ import { Modal } from 'antd';
 import 'antd/dist/antd.css';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import { Input } from 'antd';
-
+import useSWR from 'swr'
 
 function Page1() {
   const [running, setRunning] = useState(false); // 실행 중
   const [asset, setAsset] = useState({});
-  const [strategy, setStrategy] = useState("변동성 돌파");
-  const [dtable, setDtable] = useState();
+  const [strategy, setStrategy] = useState("");
+  const [dtable, setDtable] = useState([]);
   const [assetvolatility, setAssetvolatility] = useState({});
+  const [isRun, setIsRun] = useState('');
+
+  //button
+  const stop = () => {
+    axios.get('http://127.0.0.1:5000/strat/stop')
+      .then(res => setIsRun(res.data))
+      .then(setRunning(false))
+      .catch(function(error) {
+        console.log(error);
+      })
+  };
+
+  const runVoal = () => {
+    axios.get('http://127.0.0.1:5000/strat/vola')
+      .then(res => setIsRun(res.data))
+      .then(setRunning(true))
+      .catch(function (error) {
+        console.log(error);
+      })
+  };
+
+  const runRebal = () => {
+    axios.get('http://127.0.0.1:5000/strat/rebal')
+      .then(res => setIsRun(res.data))
+      .then(setRunning(true))
+      .catch(function (error) {
+        console.log(error);
+      })
+  };
+
+  const runVp = () => {
+    axios.get('http://127.0.0.1:5000/strat/vp')
+      .then(res => setIsRun(res.data))
+      .then(setRunning(true))
+      .catch(function (error) {
+        console.log(error);
+      })
+  };
+
+  const runMas = () => {
+    axios.get('http://127.0.0.1:5000/strat/mas')
+      .then(res => setIsRun(res.data))
+      .then(setRunning(true))
+      .catch(function (error) {
+        console.log(error);
+      })
+  };
 
   //Modal
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [inputValue, setInputValue] = useState();
   const showModal = () => {
-    setIsModalVisible(true);
+    setIsModalVisible(true);  
   };
   const handleOk = () => {
     setIsModalVisible(false);
@@ -35,6 +82,19 @@ function Page1() {
   const handleInputValue = (e) => {
     setInputValue(e.target.value)
   }
+
+  //swr
+  const fetcher = url => axios.get(url).then(res => res.data)
+  const { data, error } = useSWR('http://127.0.0.1:5000/info/tabledata', fetcher, { refreshInterval: 3000 })
+  
+  useEffect(() => {
+    axios.get('http://127.0.0.1:5000/info/tabledata')
+      .then(res => setDtable(res.data))
+      .catch(function (error) {
+        console.log(error);
+        setRunning(false);
+      })
+  }, [])
   
   useEffect(() => {
     axios.get('http://127.0.0.1:5000/info/stock')
@@ -119,15 +179,16 @@ function Page1() {
       <TradeContainer>
         <div style={{ overflow: 'hidden' }} >
           <Stack direction="row" spacing={2} >
-            <Button variant="contained" color="info" onClick={() => {alert('자동매매 전략을 변경했습니다.'); setStrategy("변동성 돌파")}}> 변동성 돌파 </Button>
-            <Button variant="contained" color="success" onClick={() => { alert('자동매매 전략을 변경했습니다.'); setStrategy("이평선 괴리율 스윙")}}> 이평선 괴리율 스윙 </Button>
-            <Button variant="contained" color="warning" onClick={() => { alert('자동매매 전략을 변경했습니다.'); setStrategy("체결강도")}}> 체결강도 </Button>
-            <Button variant="contained" color="secondary" onClick={() => { alert('자동매매 전략을 변경했습니다.'); setStrategy("평균 복원")}}> 평균 복원 </Button>
+            <Button variant="contained" color="info" onClick={runVoal}> 변동성 돌파 </Button>
+            <Button variant="contained" color="success" onClick={runMas}> 이평선 괴리율 스윙 </Button>
+            <Button variant="contained" color="warning" onClick={runVp}> 체결강도 </Button>
+            <Button variant="contained" color="secondary" onClick={runRebal}> 평균 복원 </Button>
+            <Button variant="contained" color="secondary" onClick={stop}> 정지 </Button>
           </Stack>
         </div>
 
         <div style={{ height: "80%", width: "100%", marginTop: "1.5%" }}>
-          <DataTable />
+          {data ? <DataTable items = {data}/> :  <DataTable></DataTable>}
         </div>
       </TradeContainer>
     </div>
