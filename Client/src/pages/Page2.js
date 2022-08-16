@@ -8,6 +8,8 @@ import Button from '@mui/material/Button';
 import FinanceLineChart from '../components/FinanceLineChart';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
+import {Modal} from 'antd';
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 
 function Page2() {
   const [value, setValue] = useState('');
@@ -23,9 +25,9 @@ function Page2() {
       })
   }, [])
 
-  const getFinanceData = async() => {
+  const getFinanceData = async () => {
     setLoading(true)
-    try{
+    try {
       if (value) {
         await axios.get('http://localhost:5000/info/financedata', {
           params: {
@@ -37,17 +39,37 @@ function Page2() {
             console.log(error);
           })
       }
-    } catch(error){
+    } catch (error) {
       console.log(error);
     }
     setLoading(false)
   }
 
-  console.log(financeData)
+  //Modal
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [inputValue, setInputValue] = useState();
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
   return (
     <Container>
+
+      <Modal title="정보 및 주의사항" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+        <p style={{ marginTop: '5%' }}> eps(당기순이익/발행주식수)와 주가의 흐름을 비교해볼 수 있는 차트입니다. </p>
+        <p>최근 6년도 데이터 중 상장일로부터 1년 이후의 데이터가 표시됩니다.</p>
+        <p></p>
+      </Modal>
+
       <AutocompleteBox>
         <br />
+        <Button type="primary" onClick={showModal}> <HelpOutlineIcon /></Button>
         <Autocomplete style={{ backgroundColor: 'white', borderRadius: 3 }}
           value={value}
           onChange={(event, newValue) => {

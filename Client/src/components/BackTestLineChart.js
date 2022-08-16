@@ -48,6 +48,12 @@ export default function BackTestLineChart(props) {
         data: props.items.asset_rbp,
         borderColor: 'rgb(53, 162, 235)',
         backgroundColor: 'rgba(53, 162, 235, 0.5)',
+      },
+      {
+        label: '이평선 괴리율 스윙',
+        data: props.items.asset_mas,
+        borderColor: 'rgba(255, 159, 26,1.0)',
+        backgroundColor: '#ffaf40',
       }
     ],
   };

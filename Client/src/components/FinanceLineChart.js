@@ -38,7 +38,7 @@ export default function FinanceLineChart(props) {
         plugins: {
             title: {
                 display: true,
-                text: title + ' 다트 API 이익 주가 차트',
+                text: title + ' 주가이익곡선',
             },
         },
         scales: {
