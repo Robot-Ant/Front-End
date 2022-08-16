@@ -3,16 +3,25 @@ import styled from 'styled-components';
 import { useEffect, useState } from "react";
 import BackTestLineChart from '../components/BackTestLineChart';
 import axios from 'axios';
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
 
 function Page3(props) {
   const [backData, setBackData] = useState({});
+  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    axios.get('http://127.0.0.1:5000/info/backdata')
+  const getBackData = async () => {
+    setLoading(true)
+    await axios.get('http://127.0.0.1:5000/info/backdata')
       .then(res => setBackData(res.data))
       .catch(function (error) {
         console.log(error);
       })
+    setLoading(false)
+  }
+
+  useEffect(() => {
+    getBackData();
   }, [])
 
   return (
@@ -24,6 +33,13 @@ function Page3(props) {
           </ChartBox2>
         </MainBox>
       </ChartContainer>
+
+      <Backdrop
+          sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          open={loading}
+        >
+          <CircularProgress color="inherit" />
+        </Backdrop>
 
       <ChartContainer style={{ marginTop: '15px' }}>
         <Box>
@@ -61,6 +77,7 @@ export default Page3;
 const Container = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
   flex-direction: column;
 `
 

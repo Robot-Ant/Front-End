@@ -47,7 +47,6 @@ function Page2() {
 
   //Modal
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [inputValue, setInputValue] = useState();
   const showModal = () => {
     setIsModalVisible(true);
   };

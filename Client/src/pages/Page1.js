@@ -14,11 +14,10 @@ import useSWR from 'swr'
 import { message, Input, Modal} from 'antd';
 
 function Page1() {
-  const [running, setRunning] = useState(''); // 실행 중인 전략
+  const [running, setRunning] = useState('False'); // 실행 중인 전략
   const [asset, setAsset] = useState({});
   const [assetvolatility, setAssetvolatility] = useState({});
   const [isRun, setIsRun] = useState(''); //임시
-  const [disabled, setDisabled] = useState(false);
 
   //실행 여부
   useEffect(() => {
