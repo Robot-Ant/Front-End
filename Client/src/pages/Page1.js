@@ -189,34 +189,34 @@ function Page1() {
       </Container>
 
       <TradeContainer>
-        <div style={{ overflow: 'hidden' }} >
+        <ButtonBox>
           <Stack direction="row" spacing={2}>
-            <Button variant="contained" color="info" onClick={() => {
+            <Button sx={{ whiteSpace:'nowrap'}} variant="contained" color="info" onClick={() => {
               runVoal()
               success()
             }}> 변동성 돌파 </Button>
 
-            <Button variant="contained" color="success" onClick={() => {
+            <Button sx={{ whiteSpace:'nowrap'}} variant="contained" color="success" onClick={() => {
               runMas()
               success()
             }} > 이평선 괴리율 스윙 </Button>
 
-            <Button variant="contained" color="warning" onClick={() => {
+            <Button sx={{ whiteSpace:'nowrap'}} variant="contained" color="warning" onClick={() => {
               runVp()
               success()
             }}> 체결강도 </Button>
 
-            <Button variant="contained" color="secondary" onClick={() => {
+            <Button sx={{ whiteSpace:'nowrap'}} variant="contained" color="secondary" onClick={() => {
               runRebal()
               success()
             }}> 평균 복원 </Button>
 
-            <Button variant="contained" color="error" onClick={() => {
+            <Button sx={{ whiteSpace:'nowrap'}} variant="contained" color="error" onClick={() => {
               stop()
               successStop()
             }}> 정지 </Button>
           </Stack>
-        </div>
+        </ButtonBox>
 
         <div style={{ height: "80%", width: "100%", marginTop: "1.5%" }}>
           {data ? <DataTable items={data} /> : <DataTable></DataTable>}
@@ -272,6 +272,7 @@ const TradeContainer = styled.div`
   display: flex;
   margin-top: 3%;
   height: 55vh;
+  width: 100%;
   justify-content: center;
   align-items:center;
   flex-direction: column;
@@ -304,6 +305,18 @@ const PaperBox = styled.div`
   border-color: rgba(95, 93, 93, 0.438);
   border-radius: 8px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 4px 6px;
+`
+
+const ButtonBox = styled.div`
+  display: flex;
+  align-items: center;
+  height: 40%;
+  width: auto;
+  @media only screen and (max-width: 900px) {
+    overflow: scroll;
+    height: 10%;
+    width: 100%;
+  }
 `
 
 const FontBox = styled.div`
