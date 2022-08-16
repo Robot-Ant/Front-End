@@ -1,0 +1,51 @@
+import React from 'react';
+import {
+    Chart as ChartJS,
+    RadialLinearScale,
+    PointElement,
+    LineElement,
+    Filler,
+    Tooltip,
+    Legend,
+} from 'chart.js';
+import { Radar } from 'react-chartjs-2';
+
+ChartJS.register(
+    RadialLinearScale,
+    PointElement,
+    LineElement,
+    Filler,
+    Tooltip,
+    Legend
+);
+
+export default function RadarChart(props) {
+    const options = {
+        responsive: true,
+        plugins: {
+            title: {
+                display: true,
+                text: '임시 레이더 차트',
+            },
+        },
+    };
+
+    const data = {
+        labels: ['Thing 1', 'Thing 2', 'Thing 3', 'Thing 4', 'Thing 5', 'Thing 6'],
+        datasets: [
+            {
+                label: '# of Votes',
+                data: [8, 9, 6, 7, 3, 6],
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 1,
+            },
+        ],
+    };
+
+    return (
+        <div>
+            <Radar options={options} data={data} />
+        </div>
+    )
+}

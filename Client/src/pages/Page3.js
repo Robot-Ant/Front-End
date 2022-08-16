@@ -5,6 +5,8 @@ import BackTestLineChart from '../components/BackTestLineChart';
 import axios from 'axios';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
+import RadarChart from '../components/RadarChart';
+import PieChart from '../components/PieChart';
 
 function Page3(props) {
   const [backData, setBackData] = useState({});
@@ -44,27 +46,12 @@ function Page3(props) {
       <ChartContainer style={{ marginTop: '15px' }}>
         <Box>
           <ChartBox>
-            이평선 괴리율 스윙
-
+            <RadarChart/>
           </ChartBox>
         </Box>
         <Box>
           <ChartBox>
-            체결강도
-
-          </ChartBox>
-        </Box>
-      </ChartContainer>
-
-      <ChartContainer style={{ marginTop: '15px' }}>
-        <Box>
-          <ChartBox>
-
-          </ChartBox>
-        </Box>
-        <Box>
-          <ChartBox>
-
+            <PieChart/>
           </ChartBox>
         </Box>
       </ChartContainer>
@@ -137,7 +124,7 @@ const ChartBox = styled.div`
   align-items: center;
   justify-content: center;
 
-  @media only screen and (max-width: 720px) {
+  @media only screen and (max-width: 900px) {
     overflow: scroll;
   }
 `
