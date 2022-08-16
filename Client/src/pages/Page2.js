@@ -62,9 +62,14 @@ function Page2() {
     <Container>
 
       <Modal title="정보 및 주의사항" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-        <p style={{ marginTop: '5%' }}> eps(당기순이익/발행주식수)와 주가의 흐름을 비교해볼 수 있는 차트입니다. </p>
+        <p style={{ marginTop: '1%' }}> eps(당기순이익/발행주식수)와 주가의 흐름을 비교해볼 수 있는 차트입니다. </p>
         <p>최근 6년도 데이터 중 상장일로부터 1년 이후의 데이터가 표시됩니다.</p>
-        <p></p>
+        <br></br>
+        <p>다트 API를 활용하여 데이터를 가져옵니다.</p>
+        <p>"""</p>
+        <p style={{color:'gray'}}>조회가 되지 않는 경우는 ‘IFRS XBRL 재무제표 작성기’를 사용하여 제출할 의무가 없는 회사입니다. (비상장회사 및 금융회사가 이에 해당)</p>
+        <p style={{color:'gray'}}>또한, 제출회사가 제출의무가 있음에도 'IFRS XBRL 재무제표 작성기'를 이용하지 않고 제출하는 경우 재무정보 추출 및 제공이 어려운 부분이 있는 점 참고부탁드립니다.</p>
+        <p>"""</p>
       </Modal>
 
       <AutocompleteBox>
