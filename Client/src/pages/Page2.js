@@ -18,7 +18,7 @@ function Page2() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    axios.get('http://127.0.0.1:5000/info/namelist')
+    axios.get('http://3.36.119.221:5000/info/namelist')
       .then(res => setFinanceList(res.data))
       .catch(function (error) {
         console.log(error);
@@ -29,7 +29,7 @@ function Page2() {
     setLoading(true)
     try {
       if (value) {
-        await axios.get('http://localhost:5000/info/financedata', {
+        await axios.get('http://3.36.119.221:5000/info/financedata', {
           params: {
             id: value
           }
@@ -111,10 +111,10 @@ const Container = styled.div`
   align-items: center;
   flex-direction: column;
   gap: 1.5%;
-  height: 70vh;
+  height: 80vh;
 
   @media only screen and (max-width: 900px) {
-    height: 70vh;
+    height: 80vh;
   }
 `
 

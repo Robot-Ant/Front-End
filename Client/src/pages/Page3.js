@@ -14,7 +14,7 @@ function Page3(props) {
 
   const getBackData = async () => {
     setLoading(true)
-    await axios.get('http://127.0.0.1:5000/info/backdata')
+    await axios.get('http://3.36.119.221:5000/info/backdata')
       .then(res => setBackData(res.data))
       .catch(function (error) {
         console.log(error);

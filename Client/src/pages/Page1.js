@@ -21,7 +21,7 @@ function Page1() {
 
   //실행 여부
   useEffect(() => {
-    axios.get('http://127.0.0.1:5000/strat/exeinfo')
+    axios.get('http://3.36.119.221:5000/strat/exeinfo')
       .then(res => setRunning(res.data))
       .catch(function (error) {
         console.log(error);
@@ -29,7 +29,7 @@ function Page1() {
   }, [])
 
   const getRunning = () => {
-    axios.get('http://127.0.0.1:5000/strat/exeinfo')
+    axios.get('http://3.36.119.221:5000/strat/exeinfo')
       .then(res => setRunning(res.data))
       .catch(function (error) {
         console.log(error);
@@ -38,7 +38,7 @@ function Page1() {
 
   //button 전략실행
   const stop = () => {
-    axios.get('http://127.0.0.1:5000/strat/stop')
+    axios.get('http://3.36.119.221:5000/strat/stop')
       .then(res => setIsRun(res.data))
       .then(setRunning('False'))
       .catch(function (error) {
@@ -47,7 +47,7 @@ function Page1() {
   };
 
   const runVoal = () => {
-    axios.get('http://127.0.0.1:5000/strat/vola')
+    axios.get('http://3.36.119.221:5000/strat/vola')
       .then(res => setIsRun(res.data))
       .then(getRunning)
       .catch(function (error) {
@@ -56,7 +56,7 @@ function Page1() {
   };
 
   const runRebal = () => {
-    axios.get('http://127.0.0.1:5000/strat/rebal')
+    axios.get('http://3.36.119.221:5000/strat/rebal')
       .then(res => setIsRun(res.data))
       .then(getRunning)
       .catch(function (error) {
@@ -65,7 +65,7 @@ function Page1() {
   };
 
   const runVp = () => {
-    axios.get('http://127.0.0.1:5000/strat/vp')
+    axios.get('http://3.36.119.221:5000/strat/vp')
       .then(res => setIsRun(res.data))
       .then(getRunning)
       .catch(function (error) {
@@ -74,7 +74,7 @@ function Page1() {
   };
 
   const runMas = () => {
-    axios.get('http://127.0.0.1:5000/strat/mas')
+    axios.get('http://3.36.119.221:5000/strat/mas')
       .then(res => setIsRun(res.data))
       .then(getRunning)
       .catch(function (error) {
@@ -106,11 +106,11 @@ function Page1() {
 
   //데이터테이블 Swr
   const fetcher = url => axios.get(url).then(res => res.data)
-  const { data, error } = useSWR('http://127.0.0.1:5000/info/tabledata', fetcher, { refreshInterval: 3000 })
+  const { data, error } = useSWR('http://3.36.119.221:5000/info/tabledata', fetcher, { refreshInterval: 3000 })
 
   //axios 요청
   useEffect(() => {
-    axios.get('http://127.0.0.1:5000/info/stock')
+    axios.get('http://3.36.119.221:5000/info/stock')
       .then(res => setAsset(res.data))
       .catch(function (error) {
         console.log(error);
@@ -118,7 +118,7 @@ function Page1() {
   }, [])
 
   useEffect(() => {
-    axios.get('http://127.0.0.1:5000/chart/assetvolatility')
+    axios.get('http://3.36.119.221:5000/chart/assetvolatility')
       .then(res => setAssetvolatility(res.data))
       .catch(function (error) {
         console.log(error);
@@ -310,12 +310,14 @@ const PaperBox = styled.div`
 const ButtonBox = styled.div`
   display: flex;
   align-items: center;
-  height: 40%;
+  height: 10%;
   width: auto;
   @media only screen and (max-width: 900px) {
     overflow: scroll;
     height: 10%;
     width: 100%;
+    padding-left: 8px;
+    padding-right: 8px;
   }
 `
 
