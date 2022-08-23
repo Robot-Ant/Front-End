@@ -297,7 +297,7 @@ const PaperBox = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 90%;
+  width: 95%;
   height: 45%;
   background-color: white;
   border: 1.5px solid;

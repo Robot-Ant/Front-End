@@ -20,7 +20,7 @@ function TabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box sx={{ p: 4 }}>
+        <Box sx={{ p: 1.5 }}>
           <Typography>{children}</Typography>
         </Box>
       )}
@@ -58,20 +58,18 @@ export default function BasicTabs() {
         </Tabs>
       </Box>
       
-      <div style={{margin:'-15px'}}>
-        <TabPanel value={value} index={0}>
-          <Page1 />
-        </TabPanel>
+      <TabPanel value={value} index={0}>
+        <Page1 />
+      </TabPanel>
 
-        <TabPanel value={value} index={1}>
-          <Page2 />
-        </TabPanel>
+      <TabPanel value={value} index={1}>
+        <Page2 />
+      </TabPanel>
 
-        <TabPanel value={value} index={2}>
-          <Page3 />
-        </TabPanel>
-      </div>
-      
+      <TabPanel value={value} index={2}>
+        <Page3 />
+      </TabPanel>
+
     </Box>
   );
 }
