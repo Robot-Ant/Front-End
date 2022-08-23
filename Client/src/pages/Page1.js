@@ -126,7 +126,7 @@ function Page1() {
   }, [])
 
   return (
-    <div>
+    <div style={{width:'100%', height:'100%'}}>
       <div style={{ marginBottom: 10 }}>
         {running !== 'False' ?
           <Alert severity="success"> <span style={{ color: "blue" }}> {running} </span> 자동매매가 실행 중입니다. </Alert>
@@ -244,7 +244,6 @@ const Box = styled.div`
   display:flex;
   width: 50%;
   height: 100%;
-  margin:1.5px;
   background-color: white;
   border: 2px solid;
   border-color: rgba(95, 93, 93, 0.438);
@@ -309,13 +308,17 @@ const PaperBox = styled.div`
 
 const ButtonBox = styled.div`
   display: flex;
-  align-items: center;
-  height: 10%;
-  width: auto;
+  justify-content: center;
+  height: auto;
+  width: 100%;
   @media only screen and (max-width: 900px) {
     overflow: scroll;
-    height: 10%;
-    width: 100%;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+  @media only screen and (max-width: 600px) {
+    justify-content: left;
+    overflow: scroll;
     padding-left: 8px;
     padding-right: 8px;
   }

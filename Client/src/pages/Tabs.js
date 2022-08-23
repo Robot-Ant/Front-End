@@ -49,26 +49,29 @@ export default function BasicTabs() {
   };
 
   return (
-    <Box sx={{ width: '100%', bgcolor: '#E7EBF0'}}>
-      <Box sx={{bgcolor: 'background.paper', borderBottom: 1, borderColor: 'divider', }}>
+    <Box sx={{ width: '100%', height:'100%', bgcolor:'#E7EBF0'}}>
+      <Box sx={{bgcolor: 'background.paper', borderBottom: 1, borderColor: 'divider'}}>
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" centered>
-          <Tab label="자산 정보" {...a11yProps(0)} />
-          <Tab label="공시 정보" {...a11yProps(1)} />
-          <Tab label="차트 모음" {...a11yProps(2)} />
+          <Tab sx={{width:'25%'}} label="자산 정보" {...a11yProps(0)} />
+          <Tab sx={{width:'25%'}} label="공시 정보" {...a11yProps(1)} />
+          <Tab sx={{width:'25%'}} label="차트 모음" {...a11yProps(2)} />
         </Tabs>
       </Box>
-
-      <Box>
+      
+      <div style={{margin:'-15px'}}>
         <TabPanel value={value} index={0}>
-          <Page1/>
+          <Page1 />
         </TabPanel>
+
         <TabPanel value={value} index={1}>
-          <Page2/>
+          <Page2 />
         </TabPanel>
+
         <TabPanel value={value} index={2}>
-          <Page3/>
+          <Page3 />
         </TabPanel>
-      </Box>
+      </div>
+      
     </Box>
   );
 }
