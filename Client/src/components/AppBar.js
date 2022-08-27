@@ -14,10 +14,18 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
+import { useEffect, useState } from "react";
 
 const ResponsiveAppBar = () => {
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const [auth, setAuth] = React.useState(false)
+  const [anchorElUser, setAnchorElUser] = useState(null);
+  const [isLogin, setIsLogin] = useState(false);
+
+  useEffect(() => {
+    if(localStorage.getItem("token")){
+      setIsLogin(true)
+    }
+  }, [])
+
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -28,6 +36,12 @@ const ResponsiveAppBar = () => {
 
   const handleClose = () => {
     setAnchorElUser(null);
+  };
+
+  const handleLogOut = () => {
+    setAnchorElUser(null);
+    localStorage.removeItem("token");
+    location.reload();
   };
 
   return (
@@ -90,7 +104,7 @@ const ResponsiveAppBar = () => {
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-            {auth ? (
+            {isLogin ? (
               <div>
                 <Tooltip title="Open settings">
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
@@ -114,9 +128,10 @@ const ResponsiveAppBar = () => {
                   onClose={handleCloseUserMenu}
                 >
                   <MenuItem onClick={handleClose}>Profile</MenuItem>
-                  <MenuItem onClick={handleClose}>Log Out</MenuItem>
+                  <MenuItem onClick={handleLogOut} >Log Out</MenuItem>
                 </Menu>
               </div>)
+              
               : <Button color="inherit" href='/login'>Login</Button>}
           </Box>
         </Toolbar>
