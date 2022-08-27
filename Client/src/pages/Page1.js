@@ -11,7 +11,7 @@ import axios from 'axios';
 import 'antd/dist/antd.css';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import useSWR from 'swr'
-import { message, Input, Modal} from 'antd';
+import { message, Input, Modal, Popconfirm } from 'antd';
 
 function Page1() {
   const [running, setRunning] = useState('False'); // 실행 중인 전략
@@ -36,8 +36,14 @@ function Page1() {
       })
   }
 
+  //button 확인메시지
+  const cancel = (e) => {
+    message.error('변경을 취소합니다.');
+  };
+
   //button 전략실행
   const stop = () => {
+    message.error('자동매매를 종료합니다.');
     axios.get('http://3.36.119.221:5000/strat/stop')
       .then(res => setIsRun(res.data))
       .then(setRunning('False'))
@@ -47,6 +53,7 @@ function Page1() {
   };
 
   const runVoal = () => {
+    message.success('(변동성 돌파) 매매전략을 변경했습니다.');
     axios.get('http://3.36.119.221:5000/strat/vola')
       .then(res => setIsRun(res.data))
       .then(getRunning)
@@ -56,6 +63,7 @@ function Page1() {
   };
 
   const runRebal = () => {
+    message.success('(평균 복원) 매매전략을 변경했습니다.');
     axios.get('http://3.36.119.221:5000/strat/rebal')
       .then(res => setIsRun(res.data))
       .then(getRunning)
@@ -65,6 +73,7 @@ function Page1() {
   };
 
   const runVp = () => {
+    message.success('(체결강도) 매매전략을 변경했습니다.');
     axios.get('http://3.36.119.221:5000/strat/vp')
       .then(res => setIsRun(res.data))
       .then(getRunning)
@@ -74,6 +83,7 @@ function Page1() {
   };
 
   const runMas = () => {
+    message.success('(이평선 괴리율 스윙) 매매전략을 변경했습니다.');
     axios.get('http://3.36.119.221:5000/strat/mas')
       .then(res => setIsRun(res.data))
       .then(getRunning)
@@ -126,7 +136,7 @@ function Page1() {
   }, [])
 
   return (
-    <div style={{width:'100%', height:'100%'}}>
+    <div style={{ width: '100%', height: '100%' }}>
       <div style={{ marginBottom: 10 }}>
         {running !== 'False' ?
           <Alert severity="success"> <span style={{ color: "blue" }}> {running} </span> 자동매매가 실행 중입니다. </Alert>
@@ -144,10 +154,10 @@ function Page1() {
               <Modal title="자동매매 수익 시뮬레이터" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
                 <Input placeholder="자산을 입력하세요" onChange={handleInputValue} />
                 <p style={{ marginTop: '5%' }}>21년 8월 ~ 22년 8월 수익률 기준</p>
-                <p>변동성 돌파 : {inputValue && Number(inputValue) + (inputValue * 0.073) +' (+7.3%)'}</p>
-                <p>이평선 괴리율 스윙 : {inputValue && Number(inputValue) + (inputValue * -0.186) +' (-18.6%)'}</p>
-                <p>체결강도 : {inputValue && Number(inputValue) + (inputValue * 0.00)+' (0%)'}</p>
-                <p>평균 복원 : {inputValue && Number(inputValue) + (inputValue * 0.0129)+' (+1.3%)'}</p>
+                <p>변동성 돌파 : {inputValue && Number(inputValue) + (inputValue * 0.073) + ' (+7.3%)'}</p>
+                <p>이평선 괴리율 스윙 : {inputValue && Number(inputValue) + (inputValue * -0.186) + ' (-18.6%)'}</p>
+                <p>체결강도 : {inputValue && Number(inputValue) + (inputValue * 0.00) + ' (0%)'}</p>
+                <p>평균 복원 : {inputValue && Number(inputValue) + (inputValue * 0.0129) + ' (+1.3%)'}</p>
 
                 <p style={{ color: 'gray', fontSize: '5%' }}>
                   투자의 책임은 투자자 본인에게 있습니다. 백테스트에 기반한 예측일 뿐이며, <br /> 원금이나 수익이 보장되지 않습니다.
@@ -191,30 +201,26 @@ function Page1() {
       <TradeContainer>
         <ButtonBox>
           <Stack direction="row" spacing={2}>
-            <Button sx={{ whiteSpace:'nowrap'}} variant="contained" color="info" onClick={() => {
-              runVoal()
-              success()
-            }}> 변동성 돌파 </Button>
+            <Popconfirm title="전략 변경 시 보유 중인 주식을 모두 매도하여 손실이 발생합니다." onConfirm={runVoal} onCancel={cancel} okText="Yes" cancelText="No">
+              <Button sx={{ whiteSpace: 'nowrap' }} variant="contained" color="info" > 변동성 돌파 </Button>
+            </Popconfirm>
 
-            <Button sx={{ whiteSpace:'nowrap'}} variant="contained" color="success" onClick={() => {
-              runMas()
-              success()
-            }} > 이평선 괴리율 스윙 </Button>
+            <Popconfirm title="전략 변경 시 보유 중인 주식을 모두 매도하여 손실이 발생합니다." onConfirm={runMas} onCancel={cancel} okText="Yes" cancelText="No">
+              <Button sx={{ whiteSpace: 'nowrap' }} variant="contained" color="success"> 이평선 괴리율 스윙 </Button>
+            </Popconfirm>
 
-            <Button sx={{ whiteSpace:'nowrap'}} variant="contained" color="warning" onClick={() => {
-              runVp()
-              success()
-            }}> 체결강도 </Button>
+            <Popconfirm title="전략 변경 시 보유 중인 주식을 모두 매도하여 손실이 발생합니다." onConfirm={runVp} onCancel={cancel} okText="Yes" cancelText="No">
+            <Button sx={{ whiteSpace: 'nowrap' }} variant="contained" color="warning"> 체결강도 </Button>
+            </Popconfirm>
 
-            <Button sx={{ whiteSpace:'nowrap'}} variant="contained" color="secondary" onClick={() => {
-              runRebal()
-              success()
-            }}> 평균 복원 </Button>
+            <Popconfirm title="전략 변경 시 보유 중인 주식을 모두 매도하여 손실이 발생합니다." onConfirm={runRebal} onCancel={cancel} okText="Yes" cancelText="No">
+            <Button sx={{ whiteSpace: 'nowrap' }} variant="contained" color="secondary"> 평균 복원 </Button>
+            </Popconfirm>
 
-            <Button sx={{ whiteSpace:'nowrap'}} variant="contained" color="error" onClick={() => {
+            <Button sx={{ whiteSpace: 'nowrap' }} variant="contained" color="error" onClick={() => {
               stop()
-              successStop()
             }}> 정지 </Button>
+
           </Stack>
         </ButtonBox>
 
