@@ -117,7 +117,7 @@ const ResponsiveAppBar = () => {
                   <MenuItem onClick={handleClose}>Log Out</MenuItem>
                 </Menu>
               </div>)
-              : <Button color="inherit">Login</Button>}
+              : <Button color="inherit" href='/login'>Login</Button>}
           </Box>
         </Toolbar>
       </Container>
