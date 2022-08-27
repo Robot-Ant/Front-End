@@ -11,6 +11,8 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from "react";
+import { message } from 'antd';
+
 /*
 const runVoal = () => {
     axios.get('http://3.36.119.221:5000/strat/vola')
@@ -40,9 +42,10 @@ export default function LoginPage() {
       .then((res) => {
         console.log(res.data.access_token)
         localStorage.setItem("token",res.data.access_token)
-        navigate('/')
+        window.location.href = '/';
       })
       .catch(function (error) {
+        message.error('아이디 및 비밀번호를 확인해주세요.');
         console.log(error);
       }) 
   };
