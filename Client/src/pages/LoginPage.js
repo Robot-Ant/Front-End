@@ -8,17 +8,43 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
+/*
+const runVoal = () => {
+    axios.get('http://3.36.119.221:5000/strat/vola')
+      .then(res => setIsRun(res.data))
+      .then(getRunning)
+      .catch(function (error) {
+        console.log(error);
+      })
+  };
+*/
 
 const theme = createTheme();
 
 export default function LoginPage() {
+  const navigate = useNavigate();
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    const inputdata = new FormData(event.currentTarget);
+    
+    axios.post('http://127.0.0.1:5000/login', null, {
+      params: {
+        id: inputdata.get('id'),
+        pw: inputdata.get('pw')
+      }
+    })
+      .then((res) => {
+        console.log(res.data.access_token)
+        localStorage.setItem("token",res.data.access_token)
+        navigate('/')
+      })
+      .catch(function (error) {
+        console.log(error);
+      }) 
   };
 
   return (
@@ -44,20 +70,20 @@ export default function LoginPage() {
               margin="normal"
               required
               fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
+              id="id"
+              label="ID"
+              name="id"
+              autoComplete="id"
               autoFocus
             />
             <TextField
               margin="normal"
               required
               fullWidth
-              name="password"
               label="Password"
+              name="pw"
               type="password"
-              id="password"
+              id="pw"
               autoComplete="current-password"
             />
 
