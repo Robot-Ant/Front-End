@@ -10,7 +10,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
+import { useEffect } from "react";
 /*
 const runVoal = () => {
     axios.get('http://3.36.119.221:5000/strat/vola')
@@ -46,6 +46,12 @@ export default function LoginPage() {
         console.log(error);
       }) 
   };
+
+  useEffect(() => {
+    if(localStorage.getItem("token")){
+      navigate('/')
+    }
+  },[])
 
   return (
     <ThemeProvider theme={theme}>
