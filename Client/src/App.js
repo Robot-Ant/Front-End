@@ -2,14 +2,23 @@
 import * as React from 'react';
 //import Container from '@mui/material/Container';
 import ResponsiveAppBar from './components/AppBar';
-import BasicTabs from './pages/Tabs';
 import styled from 'styled-components';
+import BasicTabs from './pages/Tabs';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import LoginPage from './pages/LoginPage';
 
 function App() {
   return (
     <Container>
       <ResponsiveAppBar></ResponsiveAppBar>
-      <BasicTabs></BasicTabs>
+
+      <BrowserRouter>
+				<Routes>
+					<Route path="/" element={<BasicTabs />}></Route>
+          <Route path="/login" element={<LoginPage />}></Route>
+				</Routes>
+			</BrowserRouter>
+
     </Container>
   );
 }
